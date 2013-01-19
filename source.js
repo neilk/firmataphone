@@ -372,6 +372,25 @@ Cycle = (function() {
         'b': 'b'
     };
 
+    var frequencyMap = {
+        'c': 261,
+        'd-flat': 277,
+        'd': 294,
+        'e-flat': 311,
+        'e': 329,
+        'f': 349,
+        'f-sharp': 369,
+        'g': 392,
+        'a-flat': 415,
+        'a': 440,
+        'b-flat': 466,
+        'b': 493
+    };
+
+    function byFrequency(a, b) {
+        return frequencyMap[a] - frequencyMap[b];
+    }
+
     cycle.scales = {
     };
 
@@ -469,7 +488,7 @@ Cycle = (function() {
 
     cycle.isLooping = false;
     cycle.loop = function() {
-        var notes = Object.keys(cycle.toLoop).sort();
+        var notes = Object.keys(cycle.toLoop).sort(byFrequency);
         if (notes.length) {
             cycle.isLooping = true;
             var delay = 234; // ms; each short sound is 250ms
